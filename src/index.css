@@ -1,0 +1,39 @@
+/* --------------------------- General --------------------------- */
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+@import url(./components/App/App.css);
+
+/* --------------------------- Header --------------------------- */
+@import url(./components/Header/Header.css);
+
+/* --------------------------- Main --------------------------- */
+@import url(./components/Main/Main.css);
+@import url(./components/Promo/Promo.css);
+@import url(./components/AboutProject/AboutProject.css);
+@import url(./components/Techs/Techs.css);
+@import url(./components/AboutMe/AboutMe.css);
+@import url(./components/Portfolio/Portfolio.css);
+
+/* --------------------------- Movies --------------------------- */
+@import url(./components/Movies/Movies.css);
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/MoviesCard/MoviesCard.css);
+@import url(./components/MoviesCardList/MoviesCardList.css);
+
+/* --------------------------- Login --------------------------- */
+@import url(./components/Login/Login.css);
+
+/* --------------------------- Register --------------------------- */
+@import url(./components/Register/Register.css);
+
+/* --------------------------- Profile --------------------------- */
+@import url(./components/Profile/Profile.css);
+
+/* --------------------------- Footer --------------------------- */
+@import url(./components/Footer/Footer.css);
+
+/* --------------------------- PageNotFound --------------------------- */
+@import url(./components/PageNotFound/PageNotFound.css);
+
+/* --------------------------- Navigation --------------------------- */
+@import url(./components/Navigation/Navigation.css);

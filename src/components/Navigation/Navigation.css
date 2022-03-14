@@ -1,0 +1,116 @@
+.navigation {
+  width: 520px;
+  height: 100%;
+  background-color: rgba(32, 32, 32, 1);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  display: none;
+}
+
+.navigation__links {
+  margin-top: 159px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.navigation__link {
+  margin-bottom: 28px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.navigation__link_active {
+  border-bottom: 2px solid rgba(255, 255, 255, 1);
+}
+
+.navigation__link_type_profile {
+  justify-self: end;
+  align-self: center;
+  margin-bottom: 92px;
+  width: 95px;
+  height: 29px;
+  font-size: 14px;
+  line-height: 16px;
+  border: 2px solid rgb(170, 170, 170);
+  border-radius: 25px;
+  text-align: center;
+}
+
+.navigation__profile_text {
+  margin: 0;
+  margin-left: 7px;
+}
+
+.navigation__button-close {
+  padding: 0;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 13px;
+  right: 13px;
+  background: transparent;
+  background-image: url('../../images/close-button.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+}
+
+.navigation__link:hover {
+  opacity: .6;
+  transition: opacity .5s linear;
+}
+
+.navigation__button-close:hover {
+  opacity: .6;
+  transition: opacity .5s linear;
+}
+
+
+@media screen and (max-width: 1279px) {
+  .navigation {
+    display: flex;
+  }
+
+  .navigation__invisible {
+    display: none;
+  }
+
+  .navigation__button-close {
+    top: 22px;
+    right: 22px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navigation {
+    width: 320px;
+  }
+  
+  .navigation__links {
+    margin-top: 144px;
+  }
+  
+  .navigation__link {
+    margin-bottom: 24px;
+  }
+  
+  .navigation__link_type_profile {
+    margin-bottom: 46px;
+  }
+}
