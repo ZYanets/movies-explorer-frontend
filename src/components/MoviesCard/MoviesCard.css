@@ -4,10 +4,14 @@
   border-radius: 6px;
   background-color: #222222;
   overflow: hidden;
+  width: 364px;
+  height: 281px;
 }
 
 .movie__poster {
   object-fit: contain;
+  width: 364px;
+  height: 203px;
 }
 
 .movie__info {
@@ -80,6 +84,11 @@
 }
 
 @media screen and (max-width: 1279px) {
+  .movie {
+    width: 339px;
+    height: 262px;
+  }
+  
   .movie__poster {
     width: 339px;
     height: 190px;
@@ -95,6 +104,11 @@
 }
 
 @media screen and (max-width: 767px) {
+  .movie {
+    width: 300px;
+    height: 237px;
+  }
+  
   .movie__poster {
     width: 300px;
     height: 168px;

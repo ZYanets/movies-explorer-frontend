@@ -7,10 +7,15 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main(props) {
+
+  React.useEffect(() => {
+    props.clearErrors();
+  }, [props])
+  
   return (
     <main className="main">
-      <Header/>
+      <Header isLoggedIn={props.isLoggedIn}/>
       <Promo/>
       <AboutProject/>
       <Techs/>

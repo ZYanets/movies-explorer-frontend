@@ -1,32 +1,23 @@
 import React from 'react';
 import headerLogo from '../../images/header-logo.svg';
 import { Link, useHistory } from 'react-router-dom';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
 
 function Register(props) {
-  const [username, setUsername] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  
   const history = useHistory();
-
-  function handleChangeUsername(e) {
-    setUsername(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    name: '',
+    email: '',
+    password: '',
+  });
+  
   function handleSubmit(e) {
     e.preventDefault();
-  
-    props.onRegister({
-      username, email, password
-    })
+    if (isValid) {
+      props.onRegister(
+        { name: values.name, email: values.email, password: values.password }
+      )
+    }
   }
 
   function handleRedirectMainPage() {
@@ -43,48 +34,54 @@ function Register(props) {
         <div className="register__form_field">
           <label className="register__label">Имя</label>
           <input
-            value={username}
-            onChange={handleChangeUsername}
+            value={values.name || ''}
+            onChange={handleChange}
             className="register__input register__input_type_username"
-            type="username"
-            id="username"
-            name="username"
+            type="name"
+            id="name"
+            name="name"
+            minLength="2"
+            maxLength="40"
             placeholder="Имя"
             required
           />
-          <span id="email-error" className="register__error">Что-то пошло не так...</span>
+          <span id="register__error" className="register__error">{errors.name}</span>
         </div>
         <div className="register__form_field">
           <label className="register__label">E-mail</label>
           <input
-            value={email}
-            onChange={handleChangeEmail}
+            value={values.email || ''}
+            onChange={handleChange}
             className="register__input register__input_type_email"
             type="email"
             id="email"
             name="email"
-            placeholder="Email"
+            placeholder="Электронная почта"
             required
           />
-          <span id="email-error" className="register__error">Что-то пошло не так...</span>
+          <span id="register__error" className="register__error">{errors.email}</span>
         </div>
         <div className="register__form_field">
           <label className="register__label">Пароль</label>
           <input
-            value={password}
-            onChange={handleChangePassword}
+            value={values.password || ''}
+            onChange={handleChange}
             className="register__input register__input_type_password"
             type="password"
             id="password"
             name="password"
-            placeholder="Пароль"
             minLength="6"
             maxLength="20"
+            placeholder="Пароль"
             required/>
-          <span id="password-error" className="register__error">Что-то пошло не так...</span>
-          </div>
+          <span id="register__error" className="register__error">{errors.password}</span>
+        </div>
+        <p className="profile__edit_status">{props.registerError}</p>
+        <button
+          className={`button register__button ${!isValid && 'register__button_disabled'}`}
+          disabled={!isValid}
+          type="submit">Зарегистрироваться</button>
       </form>
-      <button className="button register__button" type="submit">Зарегистрироваться</button>
       <p className="register__text">Уже зарегистрированы?
         <Link to="/signin" className="register__link"> Войти</Link>
       </p>

@@ -1,67 +1,83 @@
 import React from 'react';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
-//import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
 
 function Profile(props) {
-  /*const [username, setUsername] = React.useState('');
-  const [email, setEmail] = React.useState('');
-
   const currentUser = React.useContext(CurrentUserContext);
-
-  React.useEffect(() => {
-    setUsername(currentUser.username);
-    setEmail(currentUser.email);
-  }, [currentUser, props.isOpen]); */
-
-  const username = 'Яна';
-  const email = 'zyanets@yandex.ru';
-
-  function handleChangeUsername(e) {
-    //setUsername(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    //setEmail(e.target.value);
-  }
-
+  const [isUpdate, setIsUpdate] = React.useState(false);
+  const nameRef = React.useRef('');
+  const emailRef = React.useRef('');
+  const { handleChange, errors, isValid } = useFormWithValidation(
+    {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+    }
+  );
+  
   function handleSubmit(e) {
     e.preventDefault();
-  
-    props.onUpdateUser({
-      username: username,
-      email: email,
-    })
+    if (isValid) {
+      const name = nameRef.current.value;
+      const email = emailRef.current.value;
+      props.onEditProfile({ name, email });
+      e.target.reset();
+    }
   }
+
+  React.useEffect(() => {
+    if (nameRef.current.value === currentUser.name && emailRef.current.value === currentUser.email) {
+      setIsUpdate(false);
+    } else {
+      setIsUpdate(true);
+    }
+  }, [nameRef.current.value, emailRef.current.value, currentUser.name, currentUser.email]);
 
   return (
     <div className="profile">
-      <Header/>
-      <h1 className="profile__header">Привет, Яна!</h1>
+      <Header isLoggedIn={props.isLoggedIn}/>
+      <h1 className="profile__header">{`Привет, ${currentUser.name}!`}</h1>
       <form onSubmit={handleSubmit} className="profile__form">
-          <div className="profile__form_field">
-            <label className="profile__label">Имя</label>
-            <input
-              value={username}
-              onChange={handleChangeUsername}
-              className="profile__input profile__input_type_username"
-              type="text"
-              minLength="2"
-              maxLength="40"
-              required/>
-          </div>
-          <div className="profile__form_field">
-            <label className="profile__label">E-mail</label>
-            <input
-              value={email}
-              onChange={handleChangeEmail}
-              className="profile__input profile__input_type_email"
-              type="email"
-              required/>
-          </div>   
+        <div className="profile__form_field">
+          <label className="profile__label">Имя</label>
+          <input
+            values={nameRef.current.value}
+            onChange={handleChange}
+            className="profile__input profile__input_type_username"
+            ref={nameRef}
+            defaultValue={currentUser.name}
+            type="name"
+            id="name"
+            name="name"
+            minLength="2"
+            maxLength="40"
+            placeholder="Имя"
+            required/>
+        </div>
+        {isValid ? '' : <span id="profile__error" className="profile__error">{errors.name}</span>}
+        <div className="profile__form_field">
+          <label className="profile__label">E-mail</label>
+          <input
+            values={emailRef.current.value}
+            onChange={handleChange}
+            className="profile__input profile__input_type_email"
+            ref={emailRef}
+            defaultValue={currentUser.email}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Электронная почта"
+            required/>
+        </div>
+        {isValid ? '' : <span id="profile__error" className="profile__error">{errors.email}</span>}
+        <p className="profile__edit_status">{props.profileError}</p>
+        <button
+          className={`button profile__edit-button ${(!isUpdate || !isValid) && 'profile__edit-button_disabled'}`}
+          disabled={!isUpdate || !isValid}
+          type="submit">Редактировать</button>
       </form>
-      <button className="profile__edit-button" type="submit">Редактировать</button>
-      <Link to="/signin" className="profile__signout">Выйти из аккаунта</Link>  
+      <Link to="/signin" className="profile__signout" onClick={props.onSignout}>Выйти из аккаунта</Link>
     </div>
   );
 }

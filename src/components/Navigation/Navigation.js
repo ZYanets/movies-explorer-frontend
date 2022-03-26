@@ -4,18 +4,29 @@ import profileIcon from '../../images/profile-icon.svg';
 
 function Navigation(props) {
   const location = useLocation();
-  
   const navigationClassName = (
     `navigation ${props.isOpened ? '' : 'navigation__invisible'}`
   )
 
-  function handleClose() {
-    props.onClose();
-  }
+  React.useEffect(() => {
+    if (!props.isOpened) return;
+
+    function handleEsc(e) {
+      if (e.key === 'Escape') {
+        props.onClose()
+      }
+    };
+
+    document.addEventListener("keydown", handleEsc)
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+    }
+  });
 
   return (
     <section className={navigationClassName}>
-      <button className="navigation__button-close" type="button" onClick={handleClose}></button>
+      <button className="navigation__button-close" type="button" onClick={props.onClose}></button>
       <div className="navigation__links">
         <Link to="/" className={`navigation__link ${location.pathname === "/" ? 'navigation__link_active' : ''}`}>Главная</Link>
         <Link to="/movies" className={`navigation__link ${location.pathname === "/movies" ? 'navigation__link_active' : ''}`}>Фильмы</Link>
