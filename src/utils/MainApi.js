@@ -31,7 +31,6 @@ class MainApi {
       return fetch(`${this._baseUrl}/movies`, {
         method: 'GET',
         headers: this._getAuthorization(),
-        //credentials: 'include',
       })
         .then(this._getInfo());
     }
@@ -41,7 +40,6 @@ class MainApi {
       return fetch(`${this._baseUrl}/users/me`, {
         method: 'GET',
         headers: this._getAuthorization(),
-        //credentials: 'include',
       })
         .then(this._getInfo());
     }
@@ -51,7 +49,6 @@ class MainApi {
       return fetch(`${this._baseUrl}/users/me`, {
         method: 'PATCH',
         headers: this._getAuthorization(),
-        //credentials: 'include',
         body: JSON.stringify({
           name: name,
           email: email
@@ -65,7 +62,6 @@ class MainApi {
       return fetch(`${this._baseUrl}/movies`, {
         method: 'POST',
         headers: this._getAuthorization(),
-        //credentials: 'include',
         body: JSON.stringify({
           country: movieData.country,
           director: movieData.director,
@@ -75,7 +71,7 @@ class MainApi {
           image: movieData.image,
           trailerLink: movieData.trailerLink,
           thumbnail: movieData.thumbnail,
-          movieId: movieData.movieId, //String(movieData.movieId)
+          movieId: movieData.movieId,
           nameRU: movieData.nameRU,
           nameEN: movieData.nameEN,
         })
@@ -88,29 +84,16 @@ class MainApi {
       return fetch(`${this._baseUrl}/movies/${movie}`, {
         method: 'DELETE',
         headers: this._getAuthorization(),
-        //credentials: 'include',
       })
         .then(this._getInfo());
     }
-  
-    /* ---------------------- Постановка и снятие лайка ----------------------
-    changeLikeCardStatus(cardData, isLiked) {
-      return fetch(`${this._baseUrl}/cards/${cardData}/likes`, {
-        method: isLiked ? 'PUT' : 'DELETE',
-        headers: this._getAuthorization(),
-        //credentials: 'include',
-      })
-        .then(this._getInfo());
-    }*/
   }
   
   const mainApi = new MainApi({
     baseUrl: 'https://api.moviesexplorer.zya.nomoredomains.work',
     headers: {
-      //'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    //credentials: 'include',
   });
   
   export {mainApi};

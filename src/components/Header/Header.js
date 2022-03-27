@@ -3,7 +3,7 @@ import headerLogo from '../../images/header-logo.svg';
 import profileIcon from '../../images/profile-icon.svg';
 import navigationIcon from '../../images/navigation-icon.svg';
 import Navigation from '../Navigation/Navigation';
-import { Link, useHistory } from 'react-router-dom'; // нужно или нет  useLocation
+import { Link, useHistory } from 'react-router-dom';
 
 
 function Header(props) {

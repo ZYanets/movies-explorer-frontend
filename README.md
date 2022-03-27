@@ -1,6 +1,9 @@
 # Дипломная работа Яндекс.Практикум: Movies Explorer
 Фронтенд для приложения Movies Explorer
 
+# Ссылка на сайт
+https://moviesexplorer.zya.nomoredomains.work/
+
 ## Роуты
 `/` — отображается страница «О проекте»  
 `/movies` — отображается страница «Фильмы»  
