@@ -79,8 +79,12 @@
   width: 9px;
   height: 9px;
   background-image: url('../../images/delete-button.svg');
-  opacity: 0;
-  transition: 2s;
+  opacity: 0.3;
+}
+
+.movie__button_type_delete:hover {
+  opacity: 1;
+  transition: opacity .5s linear;
 }
 
 @media screen and (max-width: 1279px) {
@@ -127,9 +131,5 @@
   .movie__duration {
     font-size: 10px;
     line-height: 12px;
-  }
-
-  .movie__button_type_delete {
-    opacity: 1;
   }
 }

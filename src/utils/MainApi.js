@@ -1,3 +1,5 @@
+import { MAIN_API } from './constants'
+
 class MainApi {
     constructor(options) {
       this._baseUrl = options.baseUrl;
@@ -90,7 +92,7 @@ class MainApi {
   }
   
   const mainApi = new MainApi({
-    baseUrl: 'https://api.moviesexplorer.zya.nomoredomains.work',
+    baseUrl: MAIN_API,
     headers: {
       'Content-Type': 'application/json'
     },

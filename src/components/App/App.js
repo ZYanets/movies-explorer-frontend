@@ -29,7 +29,7 @@ function App() {
   const [searchSavedMovies, setSearchSavedMovies] = React.useState([]); //поиск среди сохранённых фильмов по ключевому слову
 
   const [isFilterShortMovies, setIsFilterShortMovies] = React.useState(false); //фильтрация короткометражек
-
+  const [keyword, setKeyword] = React.useState('');
   const [isPreloader, setIsPreloader] = React.useState(false);
   const [registerError, setRegisterError] = React.useState('');
   const [loginError, setLoginError] = React.useState('');
@@ -44,6 +44,11 @@ function App() {
     setProfileError('');
     setNotFoundError(false);
     setServerError(false);
+  }
+
+  function handleCheckbox() {
+    setIsFilterShortMovies(!isFilterShortMovies);
+    localStorage.setItem('isCheckbox', isFilterShortMovies);
   }
 
   React.useEffect(() => {
@@ -98,7 +103,7 @@ function App() {
     }
   }, [isFilterShortMovies])
 
-  /* -------------------Блок работы с даннфми пользователя------------------------ */
+  /* -------------------Блок работы с данными пользователя------------------------ */
 
   function handleToken() {
     const jwt = localStorage.getItem('jwt');
@@ -118,6 +123,7 @@ function App() {
         .then((res) => {
           setCurrentUser(res);
           setIsLoggedIn(true);
+          history.push(location.pathname)
         })
         .catch(err => console.log(err))
     }
@@ -196,22 +202,22 @@ function App() {
   function handleSearchMovie(keyword) {
     setServerError(false);
     setIsPreloader(true);
-    const searchResult = searchMovies(allMovies, keyword)
-      if (searchResult.length > 0) {
+    const searchResult = searchMovies(allMovies, keyword);
+    if (searchResult.length > 0) {
+      setNotFoundError(false);
+    } else {
+      setNotFoundError(true);
+    }
+    setSearchAllMovies(searchResult);
+    if (isFilterShortMovies) {
+      const shortMovies = filterShortMovies(searchResult);
+      if (shortMovies.length > 0) {
         setNotFoundError(false);
       } else {
         setNotFoundError(true);
       }
-      setSearchAllMovies(searchResult);
-      if (isFilterShortMovies) {
-        const shortMovies = filterShortMovies(allMovies);
-        if (shortMovies.length > 0) {
-          setNotFoundError(false);
-        } else {
-          setNotFoundError(true);
-        }
-        setSavedShortMovies(shortMovies);
-      }
+      setSavedShortMovies(shortMovies);
+    }
     setTimeout(() => {
       setIsPreloader(false);
     }, 1000)
@@ -232,7 +238,7 @@ function App() {
       }
       setSearchSavedMovies(searchResult);
       if (isFilterShortMovies) {
-        const shortMovies = filterShortMovies(savedMovies);
+        const shortMovies = filterShortMovies(searchResult);
         if (shortMovies.length > 0) {
           setNotFoundError(false);
         } else {
@@ -347,7 +353,9 @@ function App() {
           onSaveMovie={handleSaveMovie}
           onSearchSavedMovies={handleSearchSavedMovie}
           onDeleteMovie={handleDeleteMovie}
-          onCheckbox={setIsFilterShortMovies}
+          onCheckbox={handleCheckbox}
+          isFilterShortMovies={isFilterShortMovies}
+          keyword={keyword}
           notFoundError={notFoundError}
           serverError={serverError}
           clearErrors={clearErrors}/>
@@ -362,7 +370,8 @@ function App() {
           onSaveMovie={handleSaveMovie}
           onSearchSavedMovies={handleSearchSavedMovie}
           onDeleteMovie={handleDeleteMovie}
-          onCheckbox={setIsFilterShortMovies}
+          onCheckbox={handleCheckbox}
+          isFilterShortMovies={isFilterShortMovies}
           notFoundError={notFoundError}
           serverError={serverError}
           clearErrors={clearErrors}/>

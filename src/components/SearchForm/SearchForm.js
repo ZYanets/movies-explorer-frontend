@@ -56,6 +56,7 @@ function SearchForm(props) {
         <label className="search__checkbox">
           <input
             type="checkbox"
+            checked={props.isFilterShortMovies}
             onChange={handleFilter}/>
           <span className="search__checkbox_switch"></span>
         </label>

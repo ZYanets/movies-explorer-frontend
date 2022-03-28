@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../utils/useFormWithValidation';
+import { EMAIL_PATTERN } from '../../utils/constants';
 
 function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -68,6 +69,7 @@ function Profile(props) {
             id="email"
             name="email"
             placeholder="Электронная почта"
+            pattern={EMAIL_PATTERN}
             required/>
         </div>
         {isValid ? '' : <span id="profile__error" className="profile__error">{errors.email}</span>}
@@ -77,7 +79,7 @@ function Profile(props) {
           disabled={!isUpdate || !isValid}
           type="submit">Редактировать</button>
       </form>
-      <Link to="/signin" className="profile__signout" onClick={props.onSignout}>Выйти из аккаунта</Link>
+      <Link to="/" className="profile__signout" onClick={props.onSignout}>Выйти из аккаунта</Link>
     </div>
   );
 }

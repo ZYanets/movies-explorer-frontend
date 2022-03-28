@@ -1,18 +1,18 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
-
+import { DESKTOP_WIDTH, TABLET_WIDTH } from '../../utils/constants';
 
 function MoviesCardList(props) {
   const [lastCard, setIsLastCard] = React.useState(0);
   const moviesList = props.movies.slice(0, lastCard);
 
   function showsnumberList() {     
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < TABLET_WIDTH) {
         return setIsLastCard(5)
-    } if (window.innerWidth >= 768 && window.innerWidth <= 1280) {
+    } if (window.innerWidth >= TABLET_WIDTH && window.innerWidth <= DESKTOP_WIDTH) {
         return setIsLastCard(8)
-    } if (window.innerWidth > 1280) {
+    } if (window.innerWidth > DESKTOP_WIDTH) {
         return setIsLastCard(12)
     }
   }
@@ -22,11 +22,11 @@ function MoviesCardList(props) {
   }, [props.movies]);
 
   function handleLoadMore() {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < TABLET_WIDTH) {
           return setIsLastCard(lastCard + 2)
-      } if (window.innerWidth >= 768 && window.innerWidth <= 1280) {
+      } if (window.innerWidth >= TABLET_WIDTH && window.innerWidth <= DESKTOP_WIDTH) {
           return setIsLastCard(lastCard + 2)
-      } if (window.innerWidth > 1280) {
+      } if (window.innerWidth > DESKTOP_WIDTH) {
           return setIsLastCard(lastCard + 3)
       }
   }

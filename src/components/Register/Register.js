@@ -2,6 +2,7 @@ import React from 'react';
 import headerLogo from '../../images/header-logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/useFormWithValidation';
+import { EMAIL_PATTERN } from '../../utils/constants';
 
 function Register(props) {
   const history = useHistory();
@@ -57,6 +58,7 @@ function Register(props) {
             id="email"
             name="email"
             placeholder="Электронная почта"
+            pattern={EMAIL_PATTERN}
             required
           />
           <span id="register__error" className="register__error">{errors.email}</span>

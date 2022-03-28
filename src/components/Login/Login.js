@@ -1,7 +1,8 @@
 import React from 'react';
 import headerLogo from '../../images/header-logo.svg';
 import { Link, useHistory } from 'react-router-dom';
-import { useFormWithValidation } from '../../utils/useFormWithValidation'
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
+import { EMAIL_PATTERN } from '../../utils/constants';
 
 function Login(props) {
   const history = useHistory();
@@ -40,6 +41,7 @@ function Login(props) {
             id="email"
             name="email"
             placeholder="Электронная почта"
+            pattern={EMAIL_PATTERN}
             required
           />
           {isValid ? '' : <span id="profile__error" className="profile__error">{errors.email}</span>}
