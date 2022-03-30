@@ -6,12 +6,14 @@ function SearchForm(props) {
   const [error, setError] = React.useState('');
   const { values, isValid, handleChange } = useFormWithValidation({
     search: '',
-  })
+  }) 
+  const [value, setIsvalue] = React.useState(localStorage.getItem('keyword'));
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (isValid) {
-      props.onSearchMovies(values.search);
+    if (value.length > 0) {
+      props.onSearchMovies(value);
+      setError("")
     } else {
       setError("Нужно ввеcти ключевое слово")
     }
@@ -30,6 +32,10 @@ function SearchForm(props) {
   function handleFilter(e) {
     props.onCheckbox(e.target.checked);
   }
+
+  function handleChangeAll(e) {
+    setIsvalue(e.target.value);
+  }
  
   return (
     <section className="search">
@@ -41,9 +47,9 @@ function SearchForm(props) {
             type="text"
             id="search"
             name="search"
-            placeholder="Фильм"
-            onChange={handleChange}
-            value={values.search || ''}
+            placeholder={"Фильм"}
+            onChange={props.isSaved ? handleChange : handleChangeAll}
+            value={props.isSaved ? (values.search || '') : (value || '')}
             autoComplete="off"
             required
           />
@@ -56,7 +62,10 @@ function SearchForm(props) {
         <label className="search__checkbox">
           <input
             type="checkbox"
-            checked={props.isFilterShortMovies}
+            checked={
+              props.isSaved
+              ? props.isShortSaved ? true : false
+              : props.isShortAll ? true : false}
             onChange={handleFilter}/>
           <span className="search__checkbox_switch"></span>
         </label>

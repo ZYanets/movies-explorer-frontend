@@ -18,7 +18,7 @@ function SavedMovies(props) {
         onSearchMovies={props.onSearchMovies}
         onSearchSavedMovies={props.onSearchSavedMovies}
         onCheckbox={props.onCheckbox}
-        isFilterShortMovies={props.isFilterShortMovies}
+        isShortSaved={props.isShortSaved}
         />
       <MoviesCardList
         isSaved={true}
