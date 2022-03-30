@@ -213,6 +213,8 @@ function App() {
     setSavedShortMovies([]);
     setSearchAllMovies([]);
     setSearchSavedMovies([]);
+    setIsShortAll(false);
+    setIsShortSaved(false);
     clearErrors();
     history.push('/');
   };
