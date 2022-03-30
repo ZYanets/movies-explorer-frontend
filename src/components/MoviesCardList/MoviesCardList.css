@@ -1,4 +1,5 @@
 .movies-list {
+  width: 100%;
   padding-top: 80px;
   padding-bottom: 80px;
   display: flex;
@@ -11,9 +12,10 @@
   gap: 29px 24px;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   max-width: 1140px;
+  
 }
 
-.movies__button_visible {
+.movies__button {
   margin: 52px auto 0;
   padding: 0;
   width: 320px;
@@ -30,13 +32,24 @@
   cursor: pointer;
 }
 
-.movies__button_visible:hover {
+.movies__button:hover {
   opacity: .6;
   transition: opacity .5s linear;
 }
 
 .movies__button_invisible {
   display: none;
+}
+
+.movies__error {
+  align-self: center;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(238, 52, 101, 1);
 }
 
 @media screen and (max-width: 1279px) {

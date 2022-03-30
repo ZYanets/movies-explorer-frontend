@@ -3,14 +3,33 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import { savedMovies } from '../../utils/movies';
 
-function SavedMovies() {
+function SavedMovies(props) {
+  
+  React.useEffect(() => {
+    props.clearErrors();
+  }, [])
+
   return (
     <div className="movies">
-      <Header/>
-      <SearchForm/>
-      <MoviesCardList movies={ savedMovies }/>
+      <Header isLoggedIn={props.isLoggedIn}/>
+      <SearchForm
+        isSaved={true}
+        onSearchMovies={props.onSearchMovies}
+        onSearchSavedMovies={props.onSearchSavedMovies}
+        onCheckbox={props.onCheckbox}
+        isShortSaved={props.isShortSaved}
+        />
+      <MoviesCardList
+        isSaved={true}
+        isPreloader={props.isPreloader}
+        movies={props.movies}
+        savedMovies={props.savedMovies}
+        onSaveMovie={props.onSaveMovie}
+        onDeleteMovie={props.onDeleteMovie}
+        notFoundError={props.notFoundError}
+        serverError={props.serverError}
+        />
       <Footer/>
     </div>
   );

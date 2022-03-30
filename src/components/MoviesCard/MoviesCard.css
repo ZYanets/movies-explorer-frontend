@@ -4,10 +4,14 @@
   border-radius: 6px;
   background-color: #222222;
   overflow: hidden;
+  width: 364px;
+  height: 281px;
 }
 
 .movie__poster {
   object-fit: contain;
+  width: 364px;
+  height: 203px;
 }
 
 .movie__info {
@@ -75,11 +79,20 @@
   width: 9px;
   height: 9px;
   background-image: url('../../images/delete-button.svg');
-  opacity: 0;
-  transition: 2s;
+  opacity: 0.3;
+}
+
+.movie__button_type_delete:hover {
+  opacity: 1;
+  transition: opacity .5s linear;
 }
 
 @media screen and (max-width: 1279px) {
+  .movie {
+    width: 339px;
+    height: 262px;
+  }
+  
   .movie__poster {
     width: 339px;
     height: 190px;
@@ -95,6 +108,11 @@
 }
 
 @media screen and (max-width: 767px) {
+  .movie {
+    width: 300px;
+    height: 237px;
+  }
+  
   .movie__poster {
     width: 300px;
     height: 168px;
@@ -113,9 +131,5 @@
   .movie__duration {
     font-size: 10px;
     line-height: 12px;
-  }
-
-  .movie__button_type_delete {
-    opacity: 1;
   }
 }
