@@ -1,27 +1,23 @@
 import React from 'react';
 import headerLogo from '../../images/header-logo.svg';
 import { Link, useHistory } from 'react-router-dom';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
+import { EMAIL_PATTERN } from '../../utils/constants';
 
 function Login(props) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  
   const history = useHistory();
-
-   function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    email: '',
+    password: '',
+  }); 
+  
   function handleSubmit(e) {
     e.preventDefault();
-  
-    props.onLogin({
-      email, password
-    })
+    if (isValid) {
+      props.onLogin(
+        { email: values.email, password: values.password }
+      )
+    }   
   }
 
   function handleRedirectMainPage() {
@@ -38,34 +34,39 @@ function Login(props) {
         <div className="login__form_field">
           <label className="login__label">E-mail</label>
           <input
-            value={email}
-            onChange={handleChangeEmail}
+            value={values.email || ''}
+            onChange={handleChange}
             className="login__input login__input_type_email"
             type="email"
             id="email"
             name="email"
-            placeholder="Email"
+            placeholder="Электронная почта"
+            pattern={EMAIL_PATTERN}
             required
           />
-          <span id="email-error" className="login__error">Что-то пошло не так...</span>
+          {isValid ? '' : <span id="profile__error" className="profile__error">{errors.email}</span>}
         </div>
         <div className="login__form_field">
           <label className="login__label">Пароль</label>
           <input
-            value={password}
-            onChange={handleChangePassword}
+            value={values.password || ''}
+            onChange={handleChange}
             className="login__input login__input_type_password"
             type="password"
             id="password"
             name="password"
-            placeholder="Пароль"
             minLength="6"
             maxLength="20"
+            placeholder="Пароль"
             required/>
-          <span id="password-error" className="login__error">Что-то пошло не так...</span>
-          </div>
+          {isValid ? '' : <span id="profile__error" className="profile__error">{errors.password}</span>}
+        </div>
+        <p className="profile__edit_status">{props.loginError}</p>
+        <button
+          className={`button login__button ${!isValid && 'login__button_disabled'}`}
+          disabled={!isValid}
+          type="submit">Войти</button>
       </form>
-      <button className="button login__button" type="submit">Войти</button>
       <p className="login__text">Ещё не зарегистрированы?
         <Link to="/signup" className="login__link"> Регистрация</Link>
       </p>
